@@ -1,6 +1,6 @@
 # three-js-hello-world-cube
 
-Costycnc help you getting starded with three.js 
+Costycnc help you getting starded with three.js threejs
 
 First step to know three
 
