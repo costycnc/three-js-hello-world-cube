@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+		</style>
+	</head>
+	<body>
+	<input type="checkbox" checked onclick="material(this.checked);">material
+		<input type="checkbox" checked onclick="points(this.checked);">points
+			<input type="checkbox" checked onclick="lines(this.checked);">lines
+
+		  <script src="three.js"></script>
+
+		<script>
+			// costycnc tutorial threejs hello world cube  three js three.js https://www.costycnc.it 
+			// https://costycnc1.blogspot.com/ costycnc foam cutter cnc
+			// tutorials https://costycncprogram.blogspot.com/   https://costy35.blogspot.com/ 
+			// All you need about me https://www.google.com/search?q=costycnc
+			
+			const scene = new THREE.Scene();
+			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+			const renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+			
+
+			const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+			const material2 = new THREE.MeshNormalMaterial( {} );
+			const cube2 = new THREE.Mesh( geometry, material2 );
+			scene.add( cube2 );
+			cube2.name="material";
+////////////add points
+			const material1 = new THREE.PointsMaterial( { color: 0xff,size:.1 } );
+			const cube1 = new THREE.Points( geometry, material1 );
+			scene.add( cube1 );
+			cube1.name="points";
+////////////add lines			
+			const wireframe = new THREE.WireframeGeometry( geometry );
+			const cube = new THREE.LineSegments( wireframe );
+			scene.add( cube );
+			cube.name="lines";
+			/*
+			function removeEntity(object) {
+    var selectedObject = scene.getObjectByName(object.name);
+    scene.remove( selectedObject );
+    animate();
+}*/
+
+function material(value){
+if(value){
+	scene.add( cube2 ); 
+}else{
+    var selectedObject = scene.getObjectByName("material");
+    scene.remove( selectedObject );
+}
+}
+
+function points(value){
+if(value){
+    scene.add( cube1 );
+}else{
+    var selectedObject = scene.getObjectByName("points");
+    scene.remove( selectedObject );
+}
+}
+
+function lines(value){
+if(value){
+    scene.add( cube );
+}else{
+    var selectedObject = scene.getObjectByName("lines");
+    scene.remove( selectedObject );
+}   
+}
+			camera.position.z = 5;
+			
+			function onWindowResize( event ) {
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+
+			
+			function animate() {
+				requestAnimationFrame( animate );
+
+				cube.rotation.x += 0.01;
+				cube.rotation.y += 0.01;
+				
+				cube1.rotation.x += 0.01;
+				cube1.rotation.y += 0.01;
+				
+				cube2.rotation.x += 0.01;
+				cube2.rotation.y += 0.01;
+
+				renderer.render( scene, camera );
+			};
+			
+			animate();
+		</script>
+	</body>
+</html>
